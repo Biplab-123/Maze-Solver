@@ -1,4 +1,4 @@
-const int trigFront=2, echoFront=4, trigRight=7, echoRight=9, trigLeft=8, echoLeft=12, lm1 = 3, lm2 = 5, rm1 = 6, rm2 = 10;
+const int trigFront=2, echoFront=4, trigRight=7, echoRight=9, trigLeft=8, echoLeft=12, lm1 = 3, lm2 = 5, rm1 = 6, rm2 = 10; 
 const int spd=255;
 
    int lefts=0;
@@ -24,7 +24,7 @@ void setup() {
 
 }
 
-void loop()
+void loop() 
 {
 
 lefts=getDist(trigRight, echoRight);
@@ -40,7 +40,7 @@ if (fronts<20)
   ff=1;
 else
   ff=0;
- 
+  
 
 // LOGIC
 if (ff==1)
@@ -50,7 +50,7 @@ if (ff==1)
     delay(80);
     forward();
     left();
-    delay(100);  
+    delay(100);   
 }
 
 if (ll==0)
