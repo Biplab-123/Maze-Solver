@@ -1,1 +1,146 @@
+const int trigFront=2, echoFront=4, trigRight=7, echoRight=9, trigLeft=8, echoLeft=12, lm1 = 3, lm2 = 5, rm1 = 6, rm2 = 10;
+const int spd=255;
+
+   int lefts=0;
+   int rights=0;
+   int fronts=0;
+
+   int ll=0;
+   int ff=0;
+   
+   
+void setup() {
+  // put your setup code here, to run once:
+
+  pinMode(13,OUTPUT);
+   pinMode(trigFront,OUTPUT);
+   pinMode(echoFront,INPUT);
+   pinMode(trigRight,OUTPUT);
+   pinMode(echoRight,INPUT);
+   pinMode(trigLeft,OUTPUT);
+   pinMode(echoLeft,INPUT);  
+   
+   Serial.begin(9600);
+
+}
+
+void loop()
+{
+
+lefts=getDist(trigRight, echoRight);
+rights=getDist(trigLeft, echoLeft);
+fronts=getDist(trigFront, echoFront);
+
+if (lefts<10)
+  ll=1;
+else
+  ll=0;
+
+if (fronts<20)
+  ff=1;
+else
+  ff=0;
+ 
+
+// LOGIC
+if (ff==1)
+{
+    delay(50);
+    backward();
+    delay(80);
+    forward();
+    left();
+    delay(100);  
+}
+
+if (ll==0)
+{
+  forward();
+}
+
+if (ll==1)
+{
+    delay(10);
+    right();
+    delay(50);
+    forward();
+}
+
+//  if (getDist(trigLeft, echoLeft) > 10)
+//  {
+//    //delayMicroseconds() add delay by trial to make smooth turns
+//    counterClock();
+//    forward();
+//  }
+//  else if (getDist(trigFront, echoFront) > 10)
+//  {
+//    forward();
+//  }
+//  else
+//  {
+//    hault();
+//    clockWise();
+//  }
+}
+
+void forward()
+{
+  analogWrite(rm1,180);
+  analogWrite(rm2,0);
+  analogWrite(lm1,255);
+  analogWrite(lm2,0);
+}
+
+void backward()
+{
+  analogWrite(rm1,0);
+  analogWrite(rm2,180);
+  analogWrite(lm1,0);
+  analogWrite(lm2,255);
+}
+
+void left()
+{
+   analogWrite(lm1,50);
+   analogWrite(lm2,0);
+   analogWrite(rm1,0);
+   analogWrite(rm2,255);
+   delayMicroseconds(100);// add valueto turn 90 degree by trial
+   hault();
+   
+}
+
+void right()
+{
+   analogWrite(lm1,100);
+   analogWrite(lm2,0);
+   analogWrite(rm1,0);
+   analogWrite(rm2,50);
+   delayMicroseconds(300);// add valueto turn 90 degree by trial
+   hault();
+   
+}
+void hault()
+{
+  analogWrite(rm1,0);
+  analogWrite(rm2,0);
+  analogWrite(lm1,0);
+  analogWrite(lm2,0);
+}
+
+
+float getDist(int tr, int ech)
+{
+  digitalWrite(tr,0);
+  delayMicroseconds(2);
+  digitalWrite(tr,1);
+  delayMicroseconds(5);
+  digitalWrite(tr,0);
+  int a=pulseIn(ech,1);
+  float b=(0.017*a);
+  Serial.println(b);
+
+  return b;
+}
+
 
