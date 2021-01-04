@@ -8,3 +8,4 @@ Code: Use Left Hand Rule (LHR)
 Efficiency: Not that much efficient when it is in a Critical Maze which have lots of loop in it
 
 Future Plan:Try to use better algorithm in future or ML to make it more efficient
+
